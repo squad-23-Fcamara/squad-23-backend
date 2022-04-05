@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model public_schedules {
+  id           String         @id
+  schedule_to  DateTime
+  created_at   DateTime       @default(now())
+  public_users public_users[] @relation("public_scheduleTopublic_user")
+}
+
+model public_users {
+  id               String             @id
+  name             String
+  email            String             @unique
+  password         String
+  skills           String[]
+  mentor           Boolean
+  public_schedules public_schedules[] @relation("public_scheduleTopublic_user")
+}

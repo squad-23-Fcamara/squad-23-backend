@@ -1,0 +1,20 @@
+{
+  "name": "squad-23-backend",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/squad-23-Fcamara/squad-23-backend.git",
+  "author": "Matheus Alecksander <projetos.matheusalecksander@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15",
+    "prisma": "^3.12.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.12.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.3"
+  }
+}

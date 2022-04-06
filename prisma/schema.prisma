@@ -3,19 +3,20 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model public_schedules {
-  id           String         @id
+  id           String         @id @default(uuid())
   schedule_to  DateTime
   created_at   DateTime       @default(now())
   public_users public_users[] @relation("public_scheduleTopublic_user")
 }
 
 model public_users {
-  id               String             @id
+  id               String             @id @default(uuid())
   name             String
   email            String             @unique
   password         String

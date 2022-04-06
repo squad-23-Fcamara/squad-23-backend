@@ -9,7 +9,8 @@ class CreateUserController {
     const { email, mentor, name, password } = req.body as IUserProps
 
     if(!email || !mentor || !name || !password){
-      res.send('Missing params on request').sendStatus(400).end()
+      res.send(400)
+      return
     }
     const hashedPassword = encrypter.encrypt(password)
 
@@ -20,6 +21,8 @@ class CreateUserController {
       password: hashedPassword
     })
     
-    res.json(user).sendStatus(200)
+    res.json(user)
   }
 }
+
+export { CreateUserController }

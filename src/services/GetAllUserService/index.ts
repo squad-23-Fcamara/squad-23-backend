@@ -1,4 +1,3 @@
-
 import { prismaClient } from '../../utils/prisma'
 
 class GetAllUserService {

@@ -8,20 +8,28 @@ class CreateUserController {
     const service = new CreateUserService()
     const { email, mentor, name, password } = req.body as IUserProps
 
-    if(!email || !mentor || !name || !password){
-      res.send(400)
+    if (!email || mentor === undefined || mentor === null  || !name || !password) {
+      res.status(400)
+      res.send({
+        error: 'Missing Param'
+      })
       return
     }
     const hashedPassword = encrypter.encrypt(password)
 
-    const user = await service.execute({
-      email,
-      mentor,
-      name,
-      password: hashedPassword
-    })
-    
-    res.json(user)
+    try {
+      const user = await service.execute({
+        email,
+        mentor,
+        name,
+        password: hashedPassword
+      })
+
+      res.json(user)
+    } catch (error: any) {
+      res.status(409)
+      res.json(error.message)
+    }
   }
 }
 

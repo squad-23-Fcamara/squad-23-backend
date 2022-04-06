@@ -5,15 +5,15 @@ class GetByIdUserService {
     try {
       const user = await prismaClient.public_users.findUnique({
         where: {
-          id: id
-        }
-      }) 
+          id: id,
+        },
+      })
     
       delete user.password
       return user;
 
-    } catch(error) {
-
+    } catch (error: any) {
+      throw { ...error, message: "User with this id does'nt exists" }
     }
   }
 }

@@ -3,11 +3,17 @@ import { GetByIdUserService } from '../../services/GetByIdUserService'
 
 class GetByIdUserController {
   async handle(req: Request, res: Response) {
-  const service = new GetByIdUserService()
-  const userUUID = req.params
-  const user = await service.execute(userUUID)
+    try {
+      const service = new GetByIdUserService()
+      const { uuid } = req.params
 
-  res.json(user)
+      const user = await service.execute(uuid)
+
+      res.json(user)
+    } catch (error: any) {
+      res.status(404)
+      res.json(error.message)
+    }
   }
 }
 

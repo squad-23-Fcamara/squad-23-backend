@@ -10,15 +10,19 @@ export interface IUserProps {
 
 class CreateUserService {
   async execute({email, mentor, name, password}: IUserProps) {
-    const user = await prismaClient.public_users.create({
-      data: {
-        email,
-        mentor,
-        name,
-        password
-      }
-    })
-    return user;
+    try {
+      const user: IUserProps = await prismaClient.public_users.create({
+        data: {
+          email,
+          mentor,
+          name,
+          password
+        }
+      })
+      return user;
+    } catch (error: any) {
+      throw { ...error, message: "Email already exists"}
+    }
   }
 }
 

@@ -21,7 +21,7 @@ class UpdateUserService {
       } catch (error: any) {
         throw { 
         ...error,
-        message: "Probaly this id no exists on database"
+        message: "Probably this id doesn't exists on database"
       }
     }
   }

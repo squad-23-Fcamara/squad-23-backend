@@ -13,7 +13,7 @@ class GetByIdUserService {
       return user;
 
     } catch (error: any) {
-      throw { ...error, message: "User with this id does'nt exists" }
+      throw { ...error, message: "User with this id doesn't exists" }
     }
   }
 }

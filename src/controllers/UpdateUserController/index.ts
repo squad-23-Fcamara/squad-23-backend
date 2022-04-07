@@ -5,14 +5,15 @@ class UpdateUserController {
   async handle(req: Request, res: Response) {
 
     const service = new UpdateUserService()
-    const { id, mentor } = req.body
+    const { uuid } = req.params
+    const { mentor, skills } = req.body
 
     try {
-      const user = await service.execute(id, mentor)
+      const user = await service.execute(uuid, mentor, skills)
 
       res.json(user)
     } catch (error: any) {
-      res.status(409)
+      res.status(400)
       res.json(error.message)
     }
   }

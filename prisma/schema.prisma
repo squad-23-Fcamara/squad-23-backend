@@ -8,19 +8,24 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-model public_schedules {
+model public_mentorings {
   id           String         @id @default(uuid())
   schedule_to  DateTime
   created_at   DateTime       @default(now())
-  public_users public_users[] @relation("public_scheduleTopublic_user")
+  public_users public_users[] @relation("public_mentoringTopublic_user")
 }
 
 model public_users {
-  id               String             @id @default(uuid())
-  name             String
-  email            String             @unique
-  password         String
-  skills           String[]
-  mentor           Boolean
-  public_schedules public_schedules[] @relation("public_scheduleTopublic_user")
+  id             String         @id @default(uuid())
+  name           String //obrigatório na criação
+  email          String @unique //obrigatório na criação
+  role           String //obrigatório na criação
+  password       String //obrigatório na criação
+  seniority      String? //opcional na criação
+  skills         String[] //opcional na criação
+  interests      String[] //opcional na criação
+  available      Boolean? //opcional na criação (Marca se está disponível para ser mentor)
+  availableDates DateTime[] //opcional na criação(Dias que ele está disponível para mentoria)
+  mentorings     public_mentorings[] @relation("public_mentoringTopublic_user") //opcional na criação
+  biography      String? //opcional na criação
 }

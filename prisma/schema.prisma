@@ -12,16 +12,19 @@ model public_mentorings {
   id           String         @id @default(uuid())
   schedule_to  DateTime
   created_at   DateTime       @default(now())
+  platform     String
+  theme        String[]
   public_users public_users[] @relation("public_mentoringTopublic_user")
   notes        String?
   feedback     String?
+
 }
 
 model public_users {
   id             String         @id @default(uuid())
   name           String //obrigatório na criação
   email          String @unique //obrigatório na criação
-  role           String //obrigatório na criação
+  role           String? //obrigatório na criação
   password       String? //obrigatório na criação, mas ficará marcado como opcional para evitar warning de typescript
   seniority      String? //opcional na criação
   skills         String[] //opcional na criação

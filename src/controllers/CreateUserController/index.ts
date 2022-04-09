@@ -1,14 +1,14 @@
 import { Request, Response } from 'express'
-import { CreateUserService, IUserProps } from '../../services/CreateUserService'
+import { CreateUserService, IUserProps  } from '../../services/CreateUserService'
 import { Encrypter } from '../../utils/encrypter'
 
 class CreateUserController {
   async handle(req: Request, res: Response) {
     const encrypter = new Encrypter()
     const service = new CreateUserService()
-    const { email, mentor, name, password } = req.body as IUserProps
+    const { name, email, role, password } = req.body as IUserProps 
 
-    if (!email || mentor === undefined || mentor === null  || !name || !password) {
+    if (!name || !email || !role || !password) {
       res.status(400)
       res.send({
         error: 'Missing Param'
@@ -19,9 +19,9 @@ class CreateUserController {
 
     try {
       const user = await service.execute({
-        email,
-        mentor,
         name,
+        email,
+        role,
         password: hashedPassword
       })
 

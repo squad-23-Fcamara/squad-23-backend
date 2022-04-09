@@ -17,7 +17,6 @@ model public_mentorings {
   public_users public_users[] @relation("public_mentoringTopublic_user")
   notes        String?
   feedback     String?
-
 }
 
 model public_users {

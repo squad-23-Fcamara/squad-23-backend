@@ -1,11 +1,5 @@
 import { prismaClient } from '../../utils/prisma'
-export interface IUserProps {
-  id?: string;
-  name: string;
-  email: string;
-  role: string;
-  password: string;
-}
+import { IUserProps } from '../../@types/UserInterface'
 class CreateUserService {
   async execute({ name, email, role, password } : IUserProps) {
     try {

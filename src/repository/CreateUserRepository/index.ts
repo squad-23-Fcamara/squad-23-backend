@@ -1,5 +1,5 @@
 import { prismaClient } from "../../utils/prisma";
-import { IUserProps } from '../../@types/UserInterface'
+import { IUserProps } from '../../@types/Interfaces/IUserProps'
 
 class CreateUserRepository {
   async create({ name, email, role, password } : IUserProps) {

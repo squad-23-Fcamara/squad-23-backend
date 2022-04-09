@@ -1,17 +1,11 @@
 import { prismaClient } from '../../utils/prisma'
-import { IUserProps } from '../../@types/UserInterface'
+import { IUserProps } from '../../@types/Interfaces/IUserProps'
+import { CreateUserRepository } '../../repository/CreateUserRepository'
 class CreateUserService {
-  async execute({ name, email, role, password } : IUserProps) {
+  async execute() {
     try {
-      const user = await prismaClient.public_users.create({
-        data: {
-          name,
-          email,
-          role,
-          password,
-        }
       })
-      return user;
+      return 
     } catch (error: any) {
       throw { ...error, message: "Email already exists"}
     }

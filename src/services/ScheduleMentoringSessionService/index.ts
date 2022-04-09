@@ -1,14 +1,6 @@
 import { LoadUserFutureMentoringsRepository } from '../../repository/LoadUserFutureMentoringsRepository'
 import { ScheduleMentoringRepository } from '../../repository/ScheduleMentoringRepository'
-
-export interface IMentoringSessionProps {
-  schedule_to: Date;
-  mentor_id: string;
-  mentored_id: string;
-  notes?: string;
-  theme: string[];
-  platform: string;
-}
+import { IMentoringSessionProps } from '../../@types/Interfaces/IMentoringSessionProps'
 
 class ScheduleMentoringSessionService {
   async execute({

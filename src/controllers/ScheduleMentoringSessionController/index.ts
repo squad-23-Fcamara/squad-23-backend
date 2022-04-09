@@ -28,7 +28,6 @@ class ScheduleMentoringSessionController {
       res.status(400)
       return error.message
     }
-    
   }
 }
 

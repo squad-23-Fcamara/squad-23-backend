@@ -1,12 +1,12 @@
 import { Request, Response } from 'express'
-import { CreateUserService } from '../../services/CreateUserService'
+import { CreateUserService, IUserProps  } from '../../services/CreateUserService'
 import { Encrypter } from '../../utils/encrypter'
 
 class CreateUserController {
   async handle(req: Request, res: Response) {
     const encrypter = new Encrypter()
     const service = new CreateUserService()
-    const { name, email, role, password } = req.body as public_users
+    const { name, email, role, password } = req.body as IUserProps 
 
     if (!name || !email || !role || !password) {
       res.status(400)
@@ -21,6 +21,7 @@ class CreateUserController {
       const user = await service.execute({
         name,
         email,
+        role,
         password: hashedPassword
       })
 

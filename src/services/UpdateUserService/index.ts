@@ -2,7 +2,7 @@ import { prismaClient } from '../../utils/prisma'
 class UpdateUserService {
   async execute(id: string, skills?: string[]) {
       if (skills === undefined) {
-        throw new Error('Missing mentor and skills params, you need to send at least one of them')
+        throw new Error('Missing skills params, you need to send at least one of them')
       }
       try {
         const user = await prismaClient.public_users.update({

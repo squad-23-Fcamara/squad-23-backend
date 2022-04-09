@@ -1,6 +1,7 @@
-import { prismaClient } from '../../utils/prisma'
+import { LoadUserFutureMentoringsRepository } from '../../repository/LoadUserFutureMentoringsRepository'
+import { ScheduleMentoringRepository } from '../../repository/ScheduleMentoringRepository'
 
-interface IMentoringSessionProps {
+export interface IMentoringSessionProps {
   schedule_to: Date;
   mentor_id: string;
   mentored_id: string;
@@ -10,7 +11,7 @@ interface IMentoringSessionProps {
 }
 
 class ScheduleMentoringSessionService {
-  async execute({ 
+  async execute({
     mentor_id,
     mentored_id,
     schedule_to,
@@ -18,22 +19,41 @@ class ScheduleMentoringSessionService {
     theme,
     platform 
   }: IMentoringSessionProps) {
+    const loadUserFutureMentoringsRepository = new LoadUserFutureMentoringsRepository()
+    const scheduleMentoringRepository = new ScheduleMentoringRepository()
+
+    const mentorMentorings = await loadUserFutureMentoringsRepository.loadMentorings(mentor_id)
+    const mentoredMentorings = await loadUserFutureMentoringsRepository.loadMentorings(mentored_id)
+
     try {
-      const mentoringSession = await prismaClient.public_mentorings.create({
-        data: {
+      if (mentorMentorings) {
+        for (const mentoring of mentorMentorings.mentorings) {
+          if (new Date(mentoring.schedule_to).toISOString() === new Date(schedule_to).toISOString()) {
+            throw new Error('Mentor already have mentoring in this date')
+          }
+        }
+      }
+
+      if (mentoredMentorings) {
+        for (const mentoring of mentoredMentorings.mentorings) {
+          if (new Date(mentoring.schedule_to).toISOString() === new Date(schedule_to).toISOString()) {
+            throw new Error('Mentored already have mentoring in this date')
+          }
+        }
+      }
+
+      const mentoringSession = await scheduleMentoringRepository.schedule({
           schedule_to,
-          public_users: {
-            connect: [{ id: mentor_id }, { id: mentored_id }]
-          },
+          mentor_id,
+          mentored_id,
           notes,
           theme,
           platform
-        }
-      })
+        })
 
       return mentoringSession
-    } catch (error) {
-      throw error
+    } catch (error: any) {
+      return error.message
     }
   }
 }

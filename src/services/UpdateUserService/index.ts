@@ -1,8 +1,7 @@
 import { prismaClient } from '../../utils/prisma'
-
 class UpdateUserService {
-  async execute(id: string, mentor?: boolean, skills?: string[]) {
-      if (mentor === undefined && skills === undefined) {
+  async execute(id: string, skills?: string[]) {
+      if (skills === undefined) {
         throw new Error('Missing mentor and skills params, you need to send at least one of them')
       }
       try {
@@ -11,10 +10,10 @@ class UpdateUserService {
             id: id
           },
           data: {
-            mentor,
             skills
           }
         })
+        
         delete user.password
 
         return user

@@ -1,22 +1,15 @@
 import { prismaClient } from '../../utils/prisma'
-
-export interface IUserProps {
-  id?: string;
-  email: string;
-  mentor: boolean;
-  name: string;
-  password: string;
-}
+import { public_users } from '@prisma/client'
 
 class CreateUserService {
-  async execute({email, mentor, name, password}: IUserProps) {
+  async execute({ name, email, role, password } : public_users) {
     try {
-      const user: IUserProps = await prismaClient.public_users.create({
+      const user: public_users = await prismaClient.public_users.create({
         data: {
-          email,
-          mentor,
           name,
-          password
+          email,
+          role,
+          password,
         }
       })
       return user;

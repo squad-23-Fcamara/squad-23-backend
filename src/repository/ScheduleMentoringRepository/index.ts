@@ -1,4 +1,4 @@
-import { IMentoringSessionProps } from "../../services/ScheduleMentoringSessionService"
+import { IMentoringSessionProps } from "../../@types/Interfaces/IMentoringSessionProps"
 import { prismaClient } from "../../utils/prisma"
 
 class ScheduleMentoringRepository {

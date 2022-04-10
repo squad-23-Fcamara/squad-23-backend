@@ -1,4 +1,4 @@
-import { LoadUserFutureMentoringsRepository } from '../../repository/LoadUserFutureMentoringsRepository'
+import { VerifyUserMentoringExistisRepository } from '../../repository/VerifyUserMentoringExistisRepository'
 import { ScheduleMentoringRepository } from '../../repository/ScheduleMentoringRepository'
 import { IMentoringSessionProps } from '../../@types/Interfaces/IMentoringSessionProps'
 
@@ -11,27 +11,19 @@ class ScheduleMentoringSessionService {
     theme,
     platform 
   }: IMentoringSessionProps) {
-    const loadUserFutureMentoringsRepository = new LoadUserFutureMentoringsRepository()
+    const verifyUserMentoringExistisRepository = new VerifyUserMentoringExistisRepository()
     const scheduleMentoringRepository = new ScheduleMentoringRepository()
 
-    const mentorMentorings = await loadUserFutureMentoringsRepository.loadMentorings(mentor_id)
-    const mentoredMentorings = await loadUserFutureMentoringsRepository.loadMentorings(mentored_id)
+    const mentorMentorings = await verifyUserMentoringExistisRepository.verify(mentor_id, new Date(schedule_to).toISOString())
+    const mentoredMentorings = await verifyUserMentoringExistisRepository.verify(mentored_id, new Date(schedule_to).toISOString())
 
     try {
       if (mentorMentorings) {
-        for (const mentoring of mentorMentorings.mentorings) {
-          if (new Date(mentoring.schedule_to).toISOString() === new Date(schedule_to).toISOString()) {
-            throw new Error('Mentor already have mentoring in this date')
-          }
-        }
+        throw new Error('Mentor already have mentoring in this date')
       }
 
       if (mentoredMentorings) {
-        for (const mentoring of mentoredMentorings.mentorings) {
-          if (new Date(mentoring.schedule_to).toISOString() === new Date(schedule_to).toISOString()) {
-            throw new Error('Mentored already have mentoring in this date')
-          }
-        }
+        throw new Error('Mentored already have mentoring in this date')
       }
 
       const mentoringSession = await scheduleMentoringRepository.schedule({

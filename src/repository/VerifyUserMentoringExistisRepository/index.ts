@@ -1,7 +1,7 @@
 import { prismaClient } from "../../utils/prisma";
 
-class LoadUserFutureMentoringsRepository {
-  async loadMentorings(id: string) {
+class VerifyUserMentoringExistisRepository {
+  async verify(id: string, schedule_to: string) {
     const userMentorings = await prismaClient.public_users.findUnique({
       where: {
         id: id
@@ -9,9 +9,7 @@ class LoadUserFutureMentoringsRepository {
       select: {
         mentorings: {
           where: {
-            schedule_to: {
-              gte: new Date().toISOString()
-            }
+            schedule_to,
           }
         }
       }
@@ -21,4 +19,4 @@ class LoadUserFutureMentoringsRepository {
   }
 }
 
-export { LoadUserFutureMentoringsRepository }
+export { VerifyUserMentoringExistisRepository }

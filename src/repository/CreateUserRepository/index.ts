@@ -2,13 +2,10 @@ import { prismaClient } from "../../utils/prisma";
 import { IUserProps } from '../../@types/Interfaces/IUserProps'
 
 class CreateUserRepository {
-  async create({ name, email, role, password } : IUserProps) {
+  async create(user : IUserProps) {
     const createUser = await prismaClient.public_users.create({
       data: {
-        name,
-        email,
-        role,
-        password,
+      ...user
       }
     })
     return createUser;

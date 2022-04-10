@@ -14,24 +14,16 @@ class ScheduleMentoringSessionService {
     const loadUserFutureMentoringsRepository = new LoadUserFutureMentoringsRepository()
     const scheduleMentoringRepository = new ScheduleMentoringRepository()
 
-    const mentorMentorings = await loadUserFutureMentoringsRepository.loadMentorings(mentor_id)
-    const mentoredMentorings = await loadUserFutureMentoringsRepository.loadMentorings(mentored_id)
+    const mentorMentorings = await loadUserFutureMentoringsRepository.loadMentorings(mentor_id, new Date(schedule_to).toISOString())
+    const mentoredMentorings = await loadUserFutureMentoringsRepository.loadMentorings(mentored_id, new Date(schedule_to).toISOString())
 
     try {
       if (mentorMentorings) {
-        for (const mentoring of mentorMentorings.mentorings) {
-          if (new Date(mentoring.schedule_to).toISOString() === new Date(schedule_to).toISOString()) {
-            throw new Error('Mentor already have mentoring in this date')
-          }
-        }
+        throw new Error('Mentor already have mentoring in this date')
       }
 
       if (mentoredMentorings) {
-        for (const mentoring of mentoredMentorings.mentorings) {
-          if (new Date(mentoring.schedule_to).toISOString() === new Date(schedule_to).toISOString()) {
-            throw new Error('Mentored already have mentoring in this date')
-          }
-        }
+        throw new Error('Mentored already have mentoring in this date')
       }
 
       const mentoringSession = await scheduleMentoringRepository.schedule({

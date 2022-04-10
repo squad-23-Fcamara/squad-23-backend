@@ -10,7 +10,8 @@ class GetByEmailUserRepository {
       email: true,
     },
   })
-    return getByEmailUser;
+  
+  return getByEmailUser;
   }
 }
 

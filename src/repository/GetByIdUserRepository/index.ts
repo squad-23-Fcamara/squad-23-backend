@@ -6,6 +6,9 @@ class GetByIdUserRepository {
       where: {
         id: id
       },
+      include: {
+        mentorings: true
+      }
     })
     delete getByIdUser.password
     return getByIdUser;

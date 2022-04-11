@@ -6,6 +6,9 @@
     "contact": {
       "email": "josana.0205@gmail.com, matheusalecksander@gmail.com"
     },
+    "license": {
+      "name": "License MIT"
+    },
     "version": "1.0.0"
   },
   "servers": [
@@ -64,7 +67,37 @@
         "description": "This route is responsible for select mentors through their listed skills",
         "tags": [
           "Mentors"
-        ]
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+               "$ref": "#/components/schemas/Mentors"
+              },
+              "examples": {
+                "mentors": {
+                  "value": {
+                    "skills": ["CSS", "HTML", "JavaScript"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "500": "Error",
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Mentors"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/users/:uuid": {
@@ -73,7 +106,37 @@
         "description": "This route is responsible for select users through their id",
         "tags": [
           "Users"
-        ]
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+               "$ref": "#/components/schemas/Users"
+              },
+              "examples": {
+                "mentors": {
+                  "value": {
+                    "skills": ["CSS", "HTML", "JavaScript"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "500": "Error",
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Mentors"
+                }
+              }
+            }
+          }
+        }
       },
       "put": {
         "summary": "Users update",
@@ -101,6 +164,14 @@
           "password": {
             "type": "string"
           }  
+        }
+      },
+      "Mentors": {
+        "type": "object",
+        "properties": {
+          "skills": {
+            "type": "array"
+          }
         }
       }
     }

@@ -32,4 +32,10 @@ model public_users {
   availableDates DateTime[]
   mentorings     public_mentorings[] @relation("public_mentoringTopublic_user")
   biography      String?
+  graduations    String[]
+  github         String?
+  linkedin       String?
+  medium         String?
+  behance        String?
+  twitter        String?
 }

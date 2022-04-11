@@ -12,13 +12,13 @@ class CreateUserService {
     const getByEmailUserRepository =  new GetByEmailUserRepository()
     const createUserRepository = new CreateUserRepository()
     const encrypter = new Encrypter()
-    const userAlreadyExists = await getByEmailUserRepository.findUnique(email)
+    const userAlreadyExists = await getByEmailUserRepository.findUnique(email!)
 
     if(userAlreadyExists) {
       throw new Error ("Email already exists")
     }
 
-    const hashPassword = encrypter.encrypt(password)
+    const hashPassword = encrypter.encrypt(password!)
     const user = await createUserRepository.create({name, email, role, password: hashPassword})
 
     return user

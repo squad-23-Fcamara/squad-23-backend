@@ -1,1 +1,108 @@
-{}
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Technical Share API",
+    "description": "This api aims to connect potential mentors and mentees to schedule mentorships, focusing on learning and sharing experiences.", 
+    "contact": {
+      "email": "josana.0205@gmail.com, matheusalecksander@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000/users",
+      "description": "Test API"         
+    }
+  ],
+  "paths": {
+    "/users/create": {
+      "post": {
+        "summary": "User creation",
+        "description": "This route is responsible for creating a new user",
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+               "$ref": "#/components/schemas/Users"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "name": "Guilherme Souza",
+                    "email": "guilhermasouzaexample@gmail.com",
+                    "role": "Tech lead",
+                    "password": "#$%&FHSEG"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": "Missing Param",
+          "409": "Email already exists",
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mentors/:skills": {
+      "get": {
+        "summary": "Select mentors through their skills",
+        "description": "This route is responsible for select mentors through their listed skills",
+        "tags": [
+          "Mentors"
+        ]
+      }
+    },
+    "/users/:uuid": {
+      "get": {
+        "summary": "Select users through their ID",
+        "description": "This route is responsible for select users through their id",
+        "tags": [
+          "Users"
+        ]
+      },
+      "put": {
+        "summary": "Users update",
+        "description": "This route is responsible responsible for updating the information associated with the user",
+        "tags": [
+          "Users"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Users": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          }, 
+          "password": {
+            "type": "string"
+          }  
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,264 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Technical Share API",
+    "description": "This api aims to connect potential mentors and mentees to schedule mentorships, focusing on learning and sharing experiences.", 
+    "contact": {
+      "email": "josana.0205@gmail.com, matheusalecksander@gmail.com"
+    },
+    "license": {
+      "name": "License MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000/users",
+      "description": "Test API"         
+    }
+  ],
+  "paths": {
+    "/users/create": {
+      "post": {
+        "summary": "User creation",
+        "description": "This route is responsible for creating a new user",
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+               "$ref": "#/components/schemas/Users"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "name": "Guilherme Souza",
+                    "email": "guilhermasouzaexample@gmail.com",
+                    "role": "Tech lead",
+                    "password": "#$%&FHSEG"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Missing Param"
+          },
+          "409": {
+            "description": "Email already exists"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mentors/:skills": {
+      "get": {
+        "summary": "Select mentors through their skills",
+        "description": "This route is responsible for select mentors through their listed skills",
+        "tags": [
+          "Mentors"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+               "$ref": "#/components/schemas/Mentors"
+              },
+              "examples": {
+                "mentors": {
+                  "value": {
+                    "skills": ["CSS", "HTML", "JavaScript"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "500": {
+            "description": "Error"
+          },   
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Mentors"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/:uuid": {
+      "get": {
+        "summary": "Select users through their ID",
+        "description": "This route is responsible for select users through their id",
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+               "$ref": "#/components/schemas/Users"
+              },
+              "examples": {
+                "mentors": {
+                  "value": {
+                    "skills": ["CSS", "HTML", "JavaScript"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "500": {
+            "description": "Error"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "$ref": "#/components/schemas/Mentors"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Users update",
+        "description": "This route is responsible responsible for updating the information associated with the user",
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+               "$ref": "#/components/schemas/Users"
+              },
+              "examples": {
+                "mentors": {
+                  "value": {
+                    "skills": ["CSS", "HTML", "JavaScript"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Probably this id doesn't exists on database"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "$ref": "#/components/schemas/Mentors"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Users": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "email": {
+            "type": "string",
+            "required": true
+          },
+          "role": {
+            "type": "string",
+            "required": true
+          }, 
+          "password": {
+            "type": "string",
+            "required": true
+          },
+          "seniority": {
+            "type": "string"
+          },
+          "skills": {
+            "type": "array"
+          },
+          "interests": {
+            "type": "array"
+          },
+          "available": {
+            "type": "boolean"
+          },
+          "availableDates": {
+            "type": ""
+          },
+          "mentorings": {
+            "type": ""
+          },
+          "biography": {
+            "type": "string"
+          }
+        }
+      },
+      "Mentors": {
+        "type": "object",
+        "required": {
+          "schedule_to": {
+            "type": " "
+          },
+          "created_at": {
+            "type": " "
+          },
+          "platform": {
+            "type": "string"
+          },
+          "theme": {
+            "type": "array"
+          },
+          "public_users": {
+            "type":" "
+          }
+        },
+        "properties": {
+          "notes": {
+            "type": "string"
+          },
+          "feedback": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

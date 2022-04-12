@@ -15,7 +15,11 @@ class VerifyUserMentoringExistisRepository {
       }
     })
 
-    return userMentorings
+    if(userMentorings?.mentorings.length === 0){
+      return false
+    }
+
+    return true
   }
 }
 

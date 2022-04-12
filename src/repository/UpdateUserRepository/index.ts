@@ -17,7 +17,7 @@ class UpdateUserRepository {
     } catch (error: any) {
       throw { 
         ...error,
-        message: "This user no existis"
+        message: "This user doesn't exists"
       }
     }
     

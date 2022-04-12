@@ -26,7 +26,7 @@ class ScheduleMentoringSessionController {
       res.json(mentoringSession)
     } catch (error: any) {
       res.status(400)
-      return error.message
+      res.json(error.message)
     }
   }
 }

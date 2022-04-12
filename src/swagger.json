@@ -69,8 +69,8 @@
             "in": "path",
             "description": "Skill of user to return",
             "required": true,
-            "type": "string",
-            "enum": ["string"]
+            "type": "array",
+            "items": []
           }
         ],
         "responses": {
@@ -83,7 +83,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schemas/Mentors"
+                  "$ref": "#/components/schemas/Users"
                 }
               }
             }
@@ -145,21 +145,24 @@
             "description": "Updated new user params",
             "properties": {
               "skills": {
-                "type": "array"
+                "type": "array",
+                "items": []
               },
               "interests": {
-                "type": "array"
+                "type": "array",
+                "items": []
               },
               "available": {
                 "type": "boolean"
               },
               "availableDates": {
-                "type": "string",
+                "type": "array",
+                "items": [],
                 "format": "date-time"
               },
               "mentorings": {
-                "type": "string",
-                "enum": ["string"]
+                "type": "array",
+                "items": []
               },
               "biography": {
                 "type": "string"
@@ -219,8 +222,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           },
           "name": {
             "type": "string"
@@ -251,7 +253,8 @@
             "type": "string"
           },
           "theme": {
-            "type": "array"
+            "type": "array",
+            "items": []
           },
           "public_users": {
             "type": "string",

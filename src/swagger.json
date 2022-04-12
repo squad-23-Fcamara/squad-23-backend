@@ -151,7 +151,39 @@
         "description": "This route is responsible responsible for updating the information associated with the user",
         "tags": [
           "Users"
-        ]
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+               "$ref": "#/components/schemas/Users"
+              },
+              "examples": {
+                "mentors": {
+                  "value": {
+                    "skills": ["CSS", "HTML", "JavaScript"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Probably this id doesn't exists on database"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "$ref": "#/components/schemas/Mentors"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -159,21 +191,23 @@
     "schemas": {
       "Users": {
         "type": "object",
-        "required": {
+        "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "required": true
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "required": true
           },
           "role": {
-            "type": "string"
+            "type": "string",
+            "required": true
           }, 
           "password": {
-            "type": "string"
-          }  
-        },
-        "properties": {
+            "type": "string",
+            "required": true
+          },
           "seniority": {
             "type": "string"
           },

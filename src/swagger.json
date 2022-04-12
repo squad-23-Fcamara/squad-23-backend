@@ -13,7 +13,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:5000/users",
+      "url": "http://localhost:5000/",
       "description": "Test API"         
     }
   ],
@@ -25,25 +25,17 @@
         "tags": [
           "Users"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-               "$ref": "#/components/schemas/Users"
-              },
-              "examples": {
-                "user": {
-                  "value": {
-                    "name": "Guilherme Souza",
-                    "email": "guilhermasouzaexample@gmail.com",
-                    "role": "Tech lead",
-                    "password": "#$%&FHSEG"
-                  }
-                }
-              }
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "username to create",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/schemas/User"
             }
           }
-        },
+        ],
         "responses": {
           "400": {
             "description": "Missing Param"
@@ -56,8 +48,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "$ref": "#/components/schemas/Users"
+                  "$ref": "#/definitions/schemas/Users"
                 }
               }
             }
@@ -72,22 +63,16 @@
         "tags": [
           "Mentors"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-               "$ref": "#/components/schemas/Mentors"
-              },
-              "examples": {
-                "mentors": {
-                  "value": {
-                    "skills": ["CSS", "HTML", "JavaScript"]
-                  }
-                }
-              }
-            }
+        "parameters": [
+          {
+            "name": "skills",
+            "in": "path",
+            "description": "Skill of user to return",
+            "required": true,
+            "type": "array",
+            "items": []
           }
-        },
+        ],
         "responses": {
           "500": {
             "description": "Error"
@@ -98,7 +83,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schemas/Mentors"
+                  "$ref": "#/components/schemas/Users"
                 }
               }
             }
@@ -108,38 +93,31 @@
     },
     "/users/:uuid": {
       "get": {
-        "summary": "Select users through their ID",
-        "description": "This route is responsible for select users through their id",
+        "summary": "Find user by ID",
+        "description": "This route is responsible for returns a single users",
         "tags": [
           "Users"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-               "$ref": "#/components/schemas/Users"
-              },
-              "examples": {
-                "mentors": {
-                  "value": {
-                    "skills": ["CSS", "HTML", "JavaScript"]
-                  }
-                }
-              }
-            }
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of user to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
           }
-        },
+        ],
         "responses": {
-          "500": {
-            "description": "Error"
+          "404": {
+            "description": "This user doesn't exist"
           },
           "200": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "$ref": "#/components/schemas/Mentors"
+                  "$ref": "#/definitions/schemas/Users"
                 }
               }
             }
@@ -152,25 +130,76 @@
         "tags": [
           "Users"
         ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id that need to be updated",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updated new user params",
+            "properties": {
+              "skills": {
+                "type": "array",
+                "items": []
+              },
+              "interests": {
+                "type": "array",
+                "items": []
+              },
+              "available": {
+                "type": "boolean"
+              },
+              "availableDates": {
+                "type": "array",
+                "items": [],
+                "format": "date-time"
+              },
+              "mentorings": {
+                "type": "array",
+                "items": []
+              },
+              "biography": {
+                "type": "string"
+              },
+              "graduations": {
+                "type": "string"
+              },
+              "github": {
+                "type": "string"
+              },
+              "linkedin": {
+                "type": "string"
+              },
+              "medium": {
+                "type": "string"
+              },
+              "behance": {
+                "type": "string"
+              },
+              "twitter": {
+                "type": "string"
+              }
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-               "$ref": "#/components/schemas/Users"
-              },
-              "examples": {
-                "mentors": {
-                  "value": {
-                    "skills": ["CSS", "HTML", "JavaScript"]
-                  }
-                }
+               "$ref": "#/definitions/schemas/Users"
               }
             }
           }
         },
         "responses": {
           "400": {
-            "description": "Probably this id doesn't exists on database"
+            "description": "This user doesn't exists"
           },
           "200": {
             "description": "OK",
@@ -178,7 +207,7 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "$ref": "#/components/schemas/Mentors"
+                  "$ref": "#/definitions/schemas/Users"
                 }
               }
             }
@@ -187,70 +216,50 @@
       }
     }
   },
-  "components": {
+  "definitions": {
     "schemas": {
       "Users": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "required": true
-          },
-          "email": {
-            "type": "string",
-            "required": true
-          },
-          "role": {
-            "type": "string",
-            "required": true
-          }, 
-          "password": {
-            "type": "string",
-            "required": true
-          },
-          "seniority": {
+          "id": {
             "type": "string"
           },
-          "skills": {
-            "type": "array"
+          "name": {
+            "type": "string"
           },
-          "interests": {
-            "type": "array"
+          "email": {
+            "type": "string"
           },
-          "available": {
-            "type": "boolean"
+          "role": {
+            "type": "string"
           },
-          "availableDates": {
-            "type": ""
-          },
-          "mentorings": {
-            "type": ""
-          },
-          "biography": {
+          "password": {
             "type": "string"
           }
         }
       },
       "Mentors": {
         "type": "object",
-        "required": {
+        "properties": {
           "schedule_to": {
-            "type": " "
+            "type": "string",
+            "format": "date-time"
           },
           "created_at": {
-            "type": " "
+            "type": "string",
+            "format": "date-time"
           },
           "platform": {
             "type": "string"
           },
           "theme": {
-            "type": "array"
+            "type": "array",
+            "items": []
           },
           "public_users": {
-            "type":" "
-          }
-        },
-        "properties": {
+            "type": "string",
+            "enum": ["string"]
+          },
           "notes": {
             "type": "string"
           },

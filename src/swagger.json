@@ -45,8 +45,12 @@
           }
         },
         "responses": {
-          "400": "Missing Param",
-          "409": "Email already exists",
+          "400": {
+            "description": "Missing Param"
+          },
+          "409": {
+            "description": "Email already exists"
+          },
           "200": {
             "description": "OK",
             "content": {
@@ -85,7 +89,9 @@
           }
         },
         "responses": {
-          "500": "Error",
+          "500": {
+            "description": "Error"
+          },   
           "200": {
             "description": "OK",
             "content": {
@@ -124,13 +130,15 @@
           }
         },
         "responses": {
-          "500": "Error",
+          "500": {
+            "description": "Error"
+          },
           "200": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
+                  "type": "array",
                   "$ref": "#/components/schemas/Mentors"
                 }
               }
@@ -151,7 +159,7 @@
     "schemas": {
       "Users": {
         "type": "object",
-        "properties": {
+        "required": {
           "name": {
             "type": "string"
           },
@@ -164,13 +172,56 @@
           "password": {
             "type": "string"
           }  
+        },
+        "properties": {
+          "seniority": {
+            "type": "string"
+          },
+          "skills": {
+            "type": "array"
+          },
+          "interests": {
+            "type": "array"
+          },
+          "available": {
+            "type": "boolean"
+          },
+          "availableDates": {
+            "type": ""
+          },
+          "mentorings": {
+            "type": ""
+          },
+          "biography": {
+            "type": "string"
+          }
         }
       },
       "Mentors": {
         "type": "object",
-        "properties": {
-          "skills": {
+        "required": {
+          "schedule_to": {
+            "type": " "
+          },
+          "created_at": {
+            "type": " "
+          },
+          "platform": {
+            "type": "string"
+          },
+          "theme": {
             "type": "array"
+          },
+          "public_users": {
+            "type":" "
+          }
+        },
+        "properties": {
+          "notes": {
+            "type": "string"
+          },
+          "feedback": {
+            "type": "string"
           }
         }
       }

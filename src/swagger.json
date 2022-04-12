@@ -29,7 +29,7 @@
           "content": {
             "application/json": {
               "schema": {
-               "$ref": "#/components/schemas/Users"
+               "$ref": "#/definitions/schemas/Users"
               },
               "examples": {
                 "user": {
@@ -57,7 +57,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schemas/Users"
+                  "$ref": "#/definitions/schemas/Users"
                 }
               }
             }
@@ -117,7 +117,7 @@
           "content": {
             "application/json": {
               "schema": {
-               "$ref": "#/components/schemas/Users"
+               "$ref": "#/definitions/schemas/Users"
               },
               "examples": {
                 "mentors": {
@@ -139,7 +139,7 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "$ref": "#/components/schemas/Mentors"
+                  "$ref": "#/definitions/schemas/Users"
                 }
               }
             }
@@ -156,7 +156,7 @@
           "content": {
             "application/json": {
               "schema": {
-               "$ref": "#/components/schemas/Users"
+               "$ref": "#/definitions/schemas/Users"
               },
               "examples": {
                 "mentors": {
@@ -178,7 +178,7 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "$ref": "#/components/schemas/Mentors"
+                  "$ref": "#/definitions/schemas/Users"
                 }
               }
             }
@@ -187,11 +187,17 @@
       }
     }
   },
-  "components": {
+  "definitions": {
     "schemas": {
       "Users": {
         "type": "object",
-        "properties": {
+        "required": [
+          "name",
+          "email",
+          "role",
+          "password"
+        ],
+        "properties": { 
           "name": {
             "type": "string",
             "required": true
@@ -228,17 +234,44 @@
           },
           "biography": {
             "type": "string"
+          },
+          "graduations": {
+            "type": "string"
+          },
+          "github": {
+            "type": "string"
+          },
+          "linkedin": {
+            "type": "string"
+          },
+          "medium": {
+            "type": "string"
+          },
+          "behance": {
+            "type": "string"
+          },
+          "twitter": {
+            "type": "string"
           }
         }
       },
       "Mentors": {
         "type": "object",
-        "required": {
+        "required": [
+          "schedule_to",
+          "created_at",
+          "platform",
+          "theme",
+          "public_users"
+        ],
+        "properties": {
           "schedule_to": {
-            "type": " "
+            "type": "string",
+            "format": "date-time"
           },
           "created_at": {
-            "type": " "
+            "type": "string",
+            "format": "date-time"
           },
           "platform": {
             "type": "string"
@@ -248,9 +281,7 @@
           },
           "public_users": {
             "type":" "
-          }
-        },
-        "properties": {
+          },
           "notes": {
             "type": "string"
           },

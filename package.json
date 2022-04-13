@@ -5,6 +5,9 @@
   "repository": "https://github.com/squad-23-Fcamara/squad-23-backend.git",
   "author": "Matheus Alecksander <projetos.matheusalecksander@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": "16.14.0"
+  },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "start": "node dist/src/index.js",

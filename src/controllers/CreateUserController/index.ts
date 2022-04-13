@@ -1,29 +1,18 @@
 import { Request, Response } from 'express'
 import { CreateUserService } from '../../services/CreateUserService'
-import { Encrypter } from '../../utils/encrypter'
 
 class CreateUserController {
   async handle(req: Request, res: Response) {
-    const encrypter = new Encrypter()
     const service = new CreateUserService()
     const { name, email, role, password } = req.body
-
-    if (!name || !email || !role || !password) {
-      res.status(400)
-      res.send({
-        error: 'Missing Param'
-      })
-      return
-    }
-    const hashedPassword = encrypter.encrypt(password)
-
+    
     try {
-      const user = await service.execute({
+      const user = await service.execute(
         name,
         email,
         role,
-        password: hashedPassword
-      })
+        password
+      )
 
       res.json(user)
     } catch (error: any) {

@@ -6,11 +6,8 @@ class UpdateUserService {
     const updateUserRepository = new UpdateUserRepository()
 
     const user = await updateUserRepository.update(id, props)
-    
-    delete user.password
 
     return user
-    
   }
 }
 export { UpdateUserService }

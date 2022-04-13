@@ -11,7 +11,7 @@ class DeleteMentoringService {
     } catch (error: any) {
       throw { 
         ...error,
-        message: `Mentoring with this id don't existis`
+        message: `Mentoring with this id doesn't exists`
       }
     }
   }

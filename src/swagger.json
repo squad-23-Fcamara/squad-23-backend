@@ -1,0 +1,368 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Technical Share API",
+    "description": "This api aims to connect potential mentors and mentees to schedule mentorships, focusing on learning and sharing experiences.", 
+    "contact": {
+      "email": "josana.0205@gmail.com, matheusalecksander@gmail.com"
+    },
+    "license": {
+      "name": "License MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000/",
+      "description": "Test API"         
+    }
+  ],
+  "paths": {
+    "/users/create": {
+      "post": {
+        "summary": "User creation",
+        "description": "This route is responsible for creating a new user",
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "description": "username to create",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+               "$ref": "#/components/schemas/Users"
+              },
+              "examples": {
+                "users": {
+                  "value": {
+                    "name": "Guilherme Souza",
+                    "email": "guilhermesouza@teste.com",
+                    "role": "FullStack Developer",
+                    "password": "123456789"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Missing Param"
+          },
+          "409": {
+            "description": "Email already exists"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mentors/{skills}": {
+      "get": {
+        "summary": "Select mentors through their skills",
+        "description": "This route is responsible for select mentors through their listed skills",
+        "tags": [
+          "Mentors"
+        ],
+        "parameters": [
+          {
+            "name": "skills",
+            "in": "path",
+            "description": "Skill of user to return",
+            "required": true,
+            "type": "array",
+            "items": []
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Error"
+          },   
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{uuid}": {
+      "get": {
+        "summary": "Find user by ID",
+        "description": "This route is responsible for returns a single users",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of user to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "This user doesn't exist"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Users update",
+        "description": "This route is responsible responsible for updating the information associated with the user",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id that need to be updated",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updated new user params",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/Users"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "This user doesn't exists"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schedule/create": {
+      "post": {
+        "summary": "Mentoring schedule",
+        "description": "This route is responsible for scheduling mentoring session with a mentor",
+        "tags": [
+          "Mentors"
+        ],
+        "requestBody": {
+          "description": "mentoring to schedule",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+               "$ref": "#/components/schemas/Mentors"
+              },
+              "examples": {
+                "mentors": {
+                  "value": {
+                    "schedule_to": "2022-04-20T00:06:38.925Z",
+                    "created_at": "2022-04-17T00:06:38.925Z",
+                    "platform": "Discord",
+                    "theme": ["CSS", "HTML", "JavaScript"],
+                    "public_users": ["Guilherme Souza"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Error"
+          },
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Mentors"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schedule/delete/{uuid}": {
+      "delete": {
+        "summary": "Remove mentorship",
+        "description": "This route is responsible for removing the scheduling mentoring session with a mentor",
+        "tags": [
+          "Mentors"
+        ],
+        "parameters": [
+          {
+            "name": "deleteIdSchedule",
+            "in": "path",
+            "description": "Mentors ID to remove a mentoring session",
+            "required": true,
+            "type": "string",
+            "minimum": 1
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Mentoring with this id doesn't exists"
+          },
+          "200": {
+            "description": "Mentoring excluded with success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Mentors"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Users": {
+        "type": "object",
+        "required": [
+          "name",
+          "email",
+          "role",
+          "password"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "skills": {
+            "type": "array",
+            "items": []
+          },
+          "interests": {
+            "type": "array",
+            "items": []
+          },
+          "available": {
+            "type": "boolean"
+          },
+          "availableDates": {
+            "type": "array",
+            "items": {
+              "format": "date-time"
+            }
+          },
+          "mentorings": {
+            "type": "array",
+            "items": []
+          },
+          "biography": {
+            "type": "string"
+          },
+          "graduations": {
+            "type": "array",
+            "items": []
+          },
+          "github": {
+            "type": "string"
+          },
+          "linkedin": {
+            "type": "string"
+          },
+          "medium": {
+            "type": "string"
+          },
+          "behance": {
+            "type": "string"
+          },
+          "twitter": {
+            "type": "string"
+          }
+        }
+      },
+      "Mentors": {
+        "type": "object",
+        "required": [
+          "schedule_to",
+          "created_at",
+          "platform",
+          "theme",
+          "public_users"
+        ],
+        "properties": {
+          "schedule_to": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "platform": {
+            "type": "string"
+          },
+          "theme": {
+            "type": "array",
+            "items": []
+          },
+          "public_users": {
+            "type": "string",
+            "enum": ["string"]
+          },
+          "notes": {
+            "type": "string"
+          },
+          "feedback": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

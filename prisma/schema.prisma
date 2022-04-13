@@ -3,23 +3,39 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-model public_schedules {
-  id           String         @id
+model public_mentorings {
+  id           String         @id @default(uuid())
   schedule_to  DateTime
   created_at   DateTime       @default(now())
-  public_users public_users[] @relation("public_scheduleTopublic_user")
+  platform     String
+  theme        String[]
+  public_users public_users[] @relation("public_mentoringTopublic_user")
+  notes        String?
+  feedback     String?
 }
 
 model public_users {
-  id               String             @id
-  name             String
-  email            String             @unique
-  password         String
-  skills           String[]
-  mentor           Boolean
-  public_schedules public_schedules[] @relation("public_scheduleTopublic_user")
+  id             String              @id @default(uuid())
+  name           String
+  email          String              @unique
+  role           String?
+  password       String?
+  seniority      String?
+  skills         String[]
+  interests      String[]
+  available      Boolean?
+  availableDates DateTime[]
+  mentorings     public_mentorings[] @relation("public_mentoringTopublic_user")
+  biography      String?
+  graduations    String[]
+  github         String?
+  linkedin       String?
+  medium         String?
+  behance        String?
+  twitter        String?
 }

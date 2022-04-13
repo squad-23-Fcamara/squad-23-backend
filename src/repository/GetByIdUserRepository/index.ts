@@ -10,8 +10,11 @@ class GetByIdUserRepository {
         mentorings: true
       }
     })
-    delete getByIdUser.password
-    return getByIdUser;
+    if(getByIdUser){
+      return getByIdUser;
+    }else {
+      throw new Error('User no existis') 
+    }
   }
 }
 

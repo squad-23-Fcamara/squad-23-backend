@@ -138,54 +138,6 @@
             "required": true,
             "type": "integer",
             "format": "int64"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Updated new user params",
-            "properties": {
-              "skills": {
-                "type": "array",
-                "items": []
-              },
-              "interests": {
-                "type": "array",
-                "items": []
-              },
-              "available": {
-                "type": "boolean"
-              },
-              "availableDates": {
-                "type": "array",
-                "items": [],
-                "format": "date-time"
-              },
-              "mentorings": {
-                "type": "array",
-                "items": []
-              },
-              "biography": {
-                "type": "string"
-              },
-              "graduations": {
-                "type": "string"
-              },
-              "github": {
-                "type": "string"
-              },
-              "linkedin": {
-                "type": "string"
-              },
-              "medium": {
-                "type": "string"
-              },
-              "behance": {
-                "type": "string"
-              },
-              "twitter": {
-                "type": "string"
-              }
-            }
           }
         ],
         "requestBody": {

@@ -1,11 +1,11 @@
 import { prismaClient } from '../../utils/prisma';
 
-class GetMentorsBySkillsRepository {
-  async getMentors(skills: string[]) {
+class GetAllMentorsRepository {
+  async getMentors() {
     const mentors = await prismaClient.public_users.findMany({
       where: {
-        skills: {
-          hasSome: skills,
+        available: {
+          equals: true
         }
       }
     })
@@ -14,4 +14,4 @@ class GetMentorsBySkillsRepository {
   }
 }
 
-export { GetMentorsBySkillsRepository }
+export { GetAllMentorsRepository }

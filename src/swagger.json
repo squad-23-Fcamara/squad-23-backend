@@ -66,22 +66,12 @@
         }
       }
     },
-    "/mentors/{skills}": {
+    "/mentors/": {
       "get": {
-        "summary": "Select mentors through their skills",
-        "description": "This route is responsible for select mentors through their listed skills",
+        "summary": "Select all mentors",
+        "description": "This route is responsible for select all mentors",
         "tags": [
           "Mentors"
-        ],
-        "parameters": [
-          {
-            "name": "skills",
-            "in": "path",
-            "description": "Skill of user to return",
-            "required": true,
-            "type": "array",
-            "items": []
-          }
         ],
         "responses": {
           "500": {
@@ -196,10 +186,11 @@
                 "mentors": {
                   "value": {
                     "schedule_to": "2022-04-20T00:06:38.925Z",
+                    "mentor_id": "6hei8rj9-5g7j-2g5u-8eku5-25tdh874jm4r",
+                    "mentored_id": "5gh8ky4e-7fl3-5y0k-3d5b-5ge8j5ns76ld",
                     "created_at": "2022-04-17T00:06:38.925Z",
                     "platform": "Discord",
-                    "theme": ["CSS", "HTML", "JavaScript"],
-                    "public_users": ["Guilherme Souza"]
+                    "theme": ["CSS", "HTML", "JavaScript"]
                   }
                 }
               }
@@ -330,15 +321,22 @@
         "type": "object",
         "required": [
           "schedule_to",
+          "mentor_id",
+          "mentored_id",
           "created_at",
           "platform",
-          "theme",
-          "public_users"
+          "theme"
         ],
         "properties": {
           "schedule_to": {
             "type": "string",
             "format": "date-time"
+          },
+          "mentor_id": {
+            "type": "string"
+          },
+          "mentored_id": {
+            "type": "string"
           },
           "created_at": {
             "type": "string",
@@ -350,10 +348,6 @@
           "theme": {
             "type": "array",
             "items": []
-          },
-          "public_users": {
-            "type": "string",
-            "enum": ["string"]
           },
           "notes": {
             "type": "string"

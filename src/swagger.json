@@ -25,17 +25,27 @@
         "tags": [
           "Users"
         ],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "description": "username to create",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/schemas/User"
+        "requestBody": {
+          "description": "username to create",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+               "$ref": "#/components/schemas/Users"
+              },
+              "examples": {
+                "users": {
+                  "value": {
+                    "name": "Guilherme Souza",
+                    "email": "guilhermesouza@teste.com",
+                    "role": "FullStack Developer",
+                    "password": "123456789"
+                  }
+                }
+              }
             }
           }
-        ],
+        },
         "responses": {
           "400": {
             "description": "Missing Param"
@@ -48,7 +58,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/definitions/schemas/Users"
+                  "$ref": "#/components/schemas/Users"
                 }
               }
             }
@@ -56,7 +66,7 @@
         }
       }
     },
-    "/mentors/:skills": {
+    "/mentors/{skills}": {
       "get": {
         "summary": "Select mentors through their skills",
         "description": "This route is responsible for select mentors through their listed skills",
@@ -91,7 +101,7 @@
         }
       }
     },
-    "/users/:uuid": {
+    "/users/{uuid}": {
       "get": {
         "summary": "Find user by ID",
         "description": "This route is responsible for returns a single users",
@@ -117,7 +127,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/definitions/schemas/Users"
+                  "$ref": "#/components/schemas/Users"
                 }
               }
             }
@@ -143,60 +153,12 @@
             "in": "body",
             "name": "body",
             "description": "Updated new user params",
-            "properties": {
-              "skills": {
-                "type": "array",
-                "items": []
-              },
-              "interests": {
-                "type": "array",
-                "items": []
-              },
-              "available": {
-                "type": "boolean"
-              },
-              "availableDates": {
-                "type": "array",
-                "items": [],
-                "format": "date-time"
-              },
-              "mentorings": {
-                "type": "array",
-                "items": []
-              },
-              "biography": {
-                "type": "string"
-              },
-              "graduations": {
-                "type": "string"
-              },
-              "github": {
-                "type": "string"
-              },
-              "linkedin": {
-                "type": "string"
-              },
-              "medium": {
-                "type": "string"
-              },
-              "behance": {
-                "type": "string"
-              },
-              "twitter": {
-                "type": "string"
-              }
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/Users"
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-               "$ref": "#/definitions/schemas/Users"
-              }
-            }
-          }
-        },
         "responses": {
           "400": {
             "description": "This user doesn't exists"
@@ -207,23 +169,44 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "$ref": "#/definitions/schemas/Users"
+                  "$ref": "#/components/schemas/Users"
                 }
               }
             }
           }
         }
       }
+    },
+    "/schedule/create": {
+      "post": {
+        "summary": "Select mentors through their skills",
+        "description": "This route is responsible for select mentors through their listed skills",
+        "tags": [
+          "Mentors"
+        ]
+      }
+    },
+    "/schedule/delete/{uuid}": {
+      "delete": {
+        "summary": "Select mentors through their skills",
+        "description": "This route is responsible for select mentors through their listed skills",
+        "tags": [
+          "Mentors"
+        ]
+      }
     }
   },
-  "definitions": {
+  "components": {
     "schemas": {
       "Users": {
         "type": "object",
+        "required": [
+          "name",
+          "email",
+          "role",
+          "password"
+        ],
         "properties": {
-          "id": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
@@ -234,6 +217,49 @@
             "type": "string"
           },
           "password": {
+            "type": "string"
+          },
+          "skills": {
+            "type": "array",
+            "items": []
+          },
+          "interests": {
+            "type": "array",
+            "items": []
+          },
+          "available": {
+            "type": "boolean"
+          },
+          "availableDates": {
+            "type": "array",
+            "items": {
+              "format": "date-time"
+            }
+          },
+          "mentorings": {
+            "type": "array",
+            "items": []
+          },
+          "biography": {
+            "type": "string"
+          },
+          "graduations": {
+            "type": "array",
+            "items": []
+          },
+          "github": {
+            "type": "string"
+          },
+          "linkedin": {
+            "type": "string"
+          },
+          "medium": {
+            "type": "string"
+          },
+          "behance": {
+            "type": "string"
+          },
+          "twitter": {
             "type": "string"
           }
         }

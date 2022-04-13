@@ -179,20 +179,82 @@
     },
     "/schedule/create": {
       "post": {
-        "summary": "Select mentors through their skills",
-        "description": "This route is responsible for select mentors through their listed skills",
+        "summary": "Mentoring schedule",
+        "description": "This route is responsible for scheduling mentoring session with a mentor",
         "tags": [
           "Mentors"
-        ]
+        ],
+        "requestBody": {
+          "description": "mentoring to schedule",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+               "$ref": "#/components/schemas/Mentors"
+              },
+              "examples": {
+                "mentors": {
+                  "value": {
+                    "schedule_to": "2022-04-20T00:06:38.925Z",
+                    "created_at": "2022-04-17T00:06:38.925Z",
+                    "platform": "Discord",
+                    "theme": ["CSS", "HTML", "JavaScript"],
+                    "public_users": ["Guilherme Souza"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Error"
+          },
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Mentors"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/schedule/delete/{uuid}": {
       "delete": {
-        "summary": "Select mentors through their skills",
-        "description": "This route is responsible for select mentors through their listed skills",
+        "summary": "Remove mentorship",
+        "description": "This route is responsible for removing the scheduling mentoring session with a mentor",
         "tags": [
           "Mentors"
-        ]
+        ],
+        "parameters": [
+          {
+            "name": "deleteIdSchedule",
+            "in": "path",
+            "description": "Mentors ID to remove a mentoring session",
+            "required": true,
+            "type": "string",
+            "minimum": 1
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Mentoring with this id doesn't exists"
+          },
+          "200": {
+            "description": "Mentoring excluded with success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Mentors"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -266,6 +328,13 @@
       },
       "Mentors": {
         "type": "object",
+        "required": [
+          "schedule_to",
+          "created_at",
+          "platform",
+          "theme",
+          "public_users"
+        ],
         "properties": {
           "schedule_to": {
             "type": "string",

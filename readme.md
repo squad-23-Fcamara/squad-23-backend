@@ -16,8 +16,8 @@
 ## <a name=“description”>🧾Description</a> 
 
 For the development of our application, we considered the [SOLID design principles](https://www.baeldung.com/solid-principles) (single responsibility principle, open-closed principle, Liskov substitution principle, interface segregation principle, and dependency inversion principle) for the organization of folders and all the code. <br/> 
-We also use [Prisma - ORM](https://www.prisma.io/docs/concepts/overview/what-is-prisma), responsible to provide an object-oriented way for working with relational databases by mapping tables to model classes in our programming language.<br/> We use **Swagger** to describe our interface of RESTful APIs expressed using JSON. Once the application is started, you can go to `http://localhost:5000/api-docs` and access the Swagger documentation and play with the API.<br/><br/>
-You can also access the project's source code (Frontend) [here](https://github.com/squad-23-Fcamara/squad-23-frontend). Or you can access the deployment of the entire project in Heroku Platform [here]().
+We also use [Prisma - ORM](https://www.prisma.io/docs/concepts/overview/what-is-prisma), responsible to provide an object-oriented way for working with relational databases by mapping tables to model classes in our programming language.<br/><br/> We use **Swagger** to describe our interface of RESTful APIs expressed using JSON. Once the application is started, you can go to `http://localhost:5000/api-docs` and access the Swagger documentation and play with the API.<br/><br/>
+You can also access the project's source code (Frontend) [here](https://github.com/squad-23-Fcamara/squad-23-frontend).
 
 
 <p align="right">(<a href="#top">Back to top</a>)</p>
